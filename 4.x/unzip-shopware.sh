@@ -16,6 +16,7 @@ if [ -d install ]; then
     mv install /swinstall
 fi
 
+mkdir -p /shopware/logs
 
 chown -R www-data:www-data /shopware/
 
