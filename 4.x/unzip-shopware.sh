@@ -8,7 +8,14 @@ cd /shopware
 unzip -n -q shop.zip
 rm shop.zip
 
-mv recovery /swrecovery
+if [ -d recovery ]; then
+    mv recovery /swrecovery
+fi
+
+if [ -d install ]; then
+    mv install /swinstall
+fi
+
 
 chown -R www-data:www-data /shopware/
 
