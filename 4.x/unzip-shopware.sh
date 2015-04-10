@@ -16,6 +16,11 @@ if [ -d install ]; then
     mv install /swinstall
 fi
 
+if [ -f demo.zip ]; then
+    unzip demo.zip
+    rm demo.zip
+fi
+
 mkdir -p /shopware/logs
 
 chown -R www-data:www-data /shopware/
