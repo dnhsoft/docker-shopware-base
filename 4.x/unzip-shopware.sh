@@ -2,7 +2,7 @@
 
 cd /shopware
 
-if [ -f ./demo.zip ]; then
+if [ -f ./shop.zip ]; then
 
     unzip -n -q shop.zip
     rm shop.zip
