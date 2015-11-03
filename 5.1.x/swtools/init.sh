@@ -10,11 +10,6 @@ echo "Start importing database..."
 echo "Database imported."
 
 
-cd /shopware/bin 
-curl -s https://getcomposer.org/installer | php 
-php console sw:generate:attributes 
-php console sw:firstrunwizard:disable 
-php console sw:theme:initialize 
-cd -
-
-chown www-data:www-data -R /shopware/var/cache/
+echo "Start shop initialization..."
+/swtools/init-shop.sh
+echo "Shop initialized."
