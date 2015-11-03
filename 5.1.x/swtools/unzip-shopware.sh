@@ -21,11 +21,11 @@ if [ -f ./shop.zip ]; then
     fi
 
     mkdir -p /shopware/var
-    mkdir -p /shopware/var/logs
+    mkdir -p /shopware/var/log
 
     chown -R www-data:www-data /shopware/
 
-    chmod 775 -R var/cache var/logs files media engine/Shopware/Plugins/Community
+    chmod 775 -R var/cache var/log files media engine/Shopware/Plugins/Community
 
     mv var/log /swvolumes/log
     mv files /swvolumes/files
