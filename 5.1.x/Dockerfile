@@ -3,8 +3,7 @@ FROM tutum/apache-php
 RUN apt-get update && apt-get install -y \
         wget \
         unzip \
-        mysql-client \
-        nano
+        mysql-client
 
 
 # Install Ioncube loader
