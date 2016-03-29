@@ -2,7 +2,7 @@
 
 cd /shopware/bin
 
-chmod +x console
+chmod 744 console
 
 curl -s https://getcomposer.org/installer | php
 php console sw:generate:attributes
