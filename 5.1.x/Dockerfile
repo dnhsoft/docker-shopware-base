@@ -24,6 +24,7 @@ ENV SWDB_PASS 123456
 ENV SWDB_DATABASE shopware
 ENV SWDB_HOST db
 ENV SWDB_PORT 3306
+ENV SW_CRON 0
 
 COPY assets/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY assets/config.php /shopware/config.php
@@ -37,6 +38,11 @@ RUN rm -rf /var/www/html && ln -s /shopware /var/www/html && \
 
 ENV COMPOSER_HOME /shopware
 WORKDIR /shopware
+
+COPY assets/swcron /etc/cron.d/swcron
+RUN chmod 0644 /etc/cron.d/swcron
+RUN touch /var/log/cron.log /var/log/cron-errors.log
+RUN sed -i "2i/swtools/start-cron.sh" /run.sh
 
 ONBUILD COPY sql-data.php /swtools/sql-data.php
 ONBUILD COPY download-shopware.sh /swtools/download-shopware.sh

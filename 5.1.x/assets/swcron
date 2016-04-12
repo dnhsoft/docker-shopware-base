@@ -1,0 +1,1 @@
+*/2 * * * * root /swtools/run-cron.sh 2>>/var/log/cron-errors.log 1>>/var/log/cron.log
