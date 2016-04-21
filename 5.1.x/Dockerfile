@@ -43,7 +43,7 @@ COPY assets/swcron /etc/cron.d/swcron
 RUN chmod 0644 /etc/cron.d/swcron
 RUN touch /var/log/cron.log /var/log/cron-errors.log
 RUN sed -i "2i/swtools/start-cron.sh" /run.sh
-RUN sed -i "2i/swtools/set-sw-files-owner.sh" /run.sh
+RUN sed -i "2i/swtools/prepare-dirs.sh" /run.sh
 
 ONBUILD COPY sql-data.php /swtools/sql-data.php
 ONBUILD COPY download-shopware.sh /swtools/download-shopware.sh

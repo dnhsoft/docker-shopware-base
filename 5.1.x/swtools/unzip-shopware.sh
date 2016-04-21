@@ -25,10 +25,6 @@ if [ -f ./shop.zip ]; then
 
     chown -R www-data:www-data /shopware/
 
-    chmod 775 -R var/cache var/log files media engine/Shopware/Plugins/Community
-
-    chmod 544 /shopware/bin/console
-
     mv var/log /swvolumes/log
     mv files /swvolumes/files
     mv media /swvolumes/media
