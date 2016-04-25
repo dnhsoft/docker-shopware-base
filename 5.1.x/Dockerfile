@@ -25,10 +25,23 @@ ENV SWDB_DATABASE shopware
 ENV SWDB_HOST db
 ENV SWDB_PORT 3306
 ENV SW_CRON 0
+ENV SWSNIPPET_READ_FROM_DB 1
+ENV SWSNIPPET_WRITE_TO_DB 1
+ENV SWSNIPPET_READ_FROM_INI 0
+ENV SWSNIPPET_WRITE_TO_INI 0
+ENV SWSNIPPET_SHOW_SNIPPET_PLACE_HOLDER 0
+ENV SWFRONT_NO_ERROR_HANDLER 0
+ENV SWFRONT_THROW_EXCEPTIONS 0
+ENV SWFRONT_DISABLE_OUTPUT_BUFFERING 0
+ENV SWFRONT_SHOW_EXCEPTION 0
+ENV SWPHPSETTINGS_DATE_TIMEZONE UTC
+
+
 
 COPY assets/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY assets/config.php /shopware/config.php
 COPY assets/php-custom.ini /etc/php5/apache2/conf.d/999-custom.ini
+COPY assets/configs-default.php /shopware/engine/Shopware/Configs/Default.php
 
 COPY swtools /swtools
 

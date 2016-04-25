@@ -11,3 +11,4 @@ do
 done
 
 echo "Mysql server detected."
+
