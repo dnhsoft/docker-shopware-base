@@ -9,4 +9,4 @@ php console sw:generate:attributes
 php console sw:firstrunwizard:disable
 php console sw:theme:initialize
 
-chown www-data:www-data -R /shopware
+/swtools/prepare-dirs.sh
