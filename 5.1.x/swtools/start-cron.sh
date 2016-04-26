@@ -12,6 +12,6 @@ tail -f /var/log/swcron-errors.log &
 while true;
 do
   /swtools/run-cron.sh 2>>/var/log/swcron-errors.log 1>>/var/log/swcron.log &
-  sleep 10s
+  sleep 2m
 done
 
