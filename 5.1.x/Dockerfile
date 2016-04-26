@@ -41,7 +41,6 @@ ENV SWPHPSETTINGS_DATE_TIMEZONE UTC
 COPY assets/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY assets/config.php /shopware/config.php
 COPY assets/php-custom.ini /etc/php5/apache2/conf.d/999-custom.ini
-COPY assets/configs-default.php /shopware/engine/Shopware/Configs/Default.php
 
 COPY swtools /swtools
 
