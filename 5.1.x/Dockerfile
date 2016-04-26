@@ -52,11 +52,12 @@ RUN rm -rf /var/www/html && ln -s /shopware /var/www/html && \
 ENV COMPOSER_HOME /shopware
 WORKDIR /shopware
 
-COPY assets/swcron /etc/cron.d/swcron
-RUN chmod 0644 /etc/cron.d/swcron
-RUN touch /var/log/cron.log /var/log/cron-errors.log
-RUN sed -i "2i/swtools/start-cron.sh" /run.sh
+RUN touch /var/log/swcron.log /var/log/swcron-errors.log
+
+# inject some commands in the run.sh file;
+RUN sed -i "2i/swtools/start-cron.sh &" /run.sh
 RUN sed -i "2i/swtools/prepare-dirs.sh" /run.sh
+
 
 ONBUILD COPY sql-data.php /swtools/sql-data.php
 ONBUILD COPY download-shopware.sh /swtools/download-shopware.sh
