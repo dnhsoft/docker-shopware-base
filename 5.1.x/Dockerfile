@@ -52,7 +52,7 @@ RUN rm -rf /var/www/html && ln -s /shopware /var/www/html && \
 ENV COMPOSER_HOME /shopware
 WORKDIR /shopware
 
-curl -s https://getcomposer.org/installer | php
+RUN curl -s https://getcomposer.org/installer | php
 
 RUN touch /var/log/swcron.log /var/log/swcron-errors.log
 
