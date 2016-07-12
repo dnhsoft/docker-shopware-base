@@ -1,4 +1,5 @@
-FROM php:5.6.23-apache
+#FROM php:5.6.23-apache
+FROM dnhsoft/php:5.6
 
 
 RUN apt-get update && apt-get install -y \
@@ -18,14 +19,21 @@ RUN apt-get update && apt-get install -y \
 
 
 # Install Ioncube loader
-#RUN mkdir /ioncube && \
-#    cd /ioncube && \
-#    wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
-#    tar xvf ioncube_loaders_lin_x86-64.tar.gz && \
-#    cd `php -i | grep extension_dir | cut -d' ' -f 5` && \
-#    cp /ioncube/ioncube/ioncube_loader_lin_5.5.so . && \
-#    echo zend_extension=ioncube_loader_lin_5.5.so > /etc/php5/apache2/conf.d/000-ioncube.ini && \
-#    rm -rf /ioncube/
+RUN mkdir /ioncube && \
+    cd /ioncube && \
+    wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
+    tar xvf ioncube_loaders_lin_x86-64.tar.gz && \
+    cd `php -i | grep extension_dir | cut -d' ' -f 5` && \
+    cp /ioncube/ioncube/ioncube_loader_lin_5.6.so . && \
+    echo zend_extension=ioncube_loader_lin_5.6.so > /usr/local/etc/php/conf.d/000-ioncube.ini && \
+    rm -rf /ioncube/
+
+# a little bit of manual hack as apcu did not appear in the right folder
+RUN cp  /usr/lib/php5/20131226/apcu.so  /usr/local/lib/php/extensions/no-debug-non-zts-20131226/apcu.so && \
+    chown root:staff /usr/local/lib/php/extensions/no-debug-non-zts-20131226/apcu.so && \
+    echo 'extension=apcu.so' > /usr/local/etc/php/conf.d/apc.ini
+
+
 
 RUN a2enmod rewrite 
 
@@ -52,7 +60,8 @@ ENV SWPHPSETTINGS_DATE_TIMEZONE UTC
 
 COPY assets/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY assets/config.php /shopware/config.php
-COPY assets/php-custom.ini /usr/local/etc/php/conf.d/shopware-custom.ini
+COPY assets/shopware-custom.ini /usr/local/etc/php/conf.d/shopware-custom.ini
+COPY assets/opcache-custom.ini /usr/local/etc/php/conf.d/opcache-custom.ini
 
 COPY swtools /swtools
 
