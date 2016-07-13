@@ -22,14 +22,12 @@ RUN mkdir /ioncube && \
     tar xvf ioncube_loaders_lin_x86-64.tar.gz && \
     cd `php -i | grep extension_dir | cut -d' ' -f 5` && \
     cp /ioncube/ioncube/ioncube_loader_lin_5.6.so . && \
-    echo zend_extension=ioncube_loader_lin_5.6.so > /usr/local/etc/php/conf.d/000-ioncube.ini && \
     rm -rf /ioncube/
+
 
 # a little bit of manual hack as apcu did not appear in the right folder
 RUN cp  /usr/lib/php5/20131226/apcu.so  /usr/local/lib/php/extensions/no-debug-non-zts-20131226/apcu.so && \
-    chown root:staff /usr/local/lib/php/extensions/no-debug-non-zts-20131226/apcu.so && \
-    echo 'extension=apcu.so' > /usr/local/etc/php/conf.d/apc.ini
-
+    chown root:staff /usr/local/lib/php/extensions/no-debug-non-zts-20131226/apcu.so
 
 
 RUN a2enmod rewrite 
@@ -54,11 +52,27 @@ ENV SWFRONT_SHOW_EXCEPTION 0
 ENV SWPHPSETTINGS_DATE_TIMEZONE UTC
 
 
+# php variables
+ENV SWPHP_UPLOAD_MAX_FILESIZE "64M"
+ENV SWPHP_POST_MAX_FILESIZE "64M"
+ENV SWPHP_MEMORY_LIMIT "512M"
+
+# opcache variables
+ENV SWPHP_OPCACHE_ENABLE 1
+ENV SWPHP_OPCACHE_MEMORY_CONSUMPTION 128
+ENV SWPHP_OPCACHE_INTERNED_STRINGS_BUFFER 8
+ENV SWPHP_OPCACHE_ACCELERATED_FILES 10000
+ENV SWPHP_OPCACHE_REVALIDATE_FREQ 5
+ENV SWPHP_OPCACHE_FAST_SHUTDOWN 1
+
+# other variables
+ENV SWPHP_IONCUBE_ENABLE 1
+ENV SWPHP_APCU_ENABLE 1
+
+
 
 COPY assets/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY assets/config.php /shopware/config.php
-COPY assets/shopware-custom.ini /usr/local/etc/php/conf.d/shopware-custom.ini
-COPY assets/opcache-custom.ini /usr/local/etc/php/conf.d/opcache-custom.ini
 
 COPY swtools /swtools
 
@@ -76,6 +90,7 @@ RUN touch /var/log/swcron.log /var/log/swcron-errors.log
 # inject some commands in the run.sh file;
 RUN sed -i "3i/swtools/start-cron.sh &" /usr/local/bin/apache2-foreground
 RUN sed -i "3i/swtools/prepare-dirs.sh" /usr/local/bin/apache2-foreground
+RUN sed -i "3i/swtools/setup-php.sh" /usr/local/bin/apache2-foreground
 
 
 ONBUILD COPY sql-data.php /swtools/sql-data.php
