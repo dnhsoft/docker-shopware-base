@@ -4,7 +4,7 @@ cd /shopware
 
 if [ -f ./shop.zip ]; then
 
-    unzip -n -q shop.zip
+    unzip -q shop.zip
     rm shop.zip
 
     if [ -d ./recovery ]; then
