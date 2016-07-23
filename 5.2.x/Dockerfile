@@ -34,7 +34,7 @@ RUN a2enmod rewrite
 
 RUN sed -i 's/www-data:x:33:33/www-data:x:1000:1000/g' /etc/passwd
 
-ENV SWDB_USER admin
+ENV SWDB_USER root
 ENV SWDB_PASS 123456
 ENV SWDB_DATABASE shopware
 ENV SWDB_HOST db
