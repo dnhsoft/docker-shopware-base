@@ -45,7 +45,7 @@ IONCUBE_INI_FILE="$INI_DIR/000-ioncube.ini"
 rm -f $IONCUBE_INI_FILE
 
 if [ $SWPHP_IONCUBE_ENABLE == '1' ]; then
-  echo "zend_extension=ioncube_loader_lin_x86-64_7.0b7.so" >> $IONCUBE_INI_FILE
+  echo "zend_extension=ioncube_loader_lin_7.2.so" >> $IONCUBE_INI_FILE
 fi
 
 
