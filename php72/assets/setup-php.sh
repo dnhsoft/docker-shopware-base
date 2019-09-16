@@ -1,7 +1,8 @@
 #!/bin/bash
 
-INI_DIR="/usr/local/etc/php/conf.d"
+echo "Setting up PHP... "
 
+INI_DIR="/usr/local/etc/php/conf.d"
 
 
 PHP_INI_FILE="$INI_DIR/php-custom.ini"
@@ -21,6 +22,7 @@ OPCACHE_INI_FILE="$INI_DIR/opcache-custom.ini"
 rm -f $OPCACHE_INI_FILE
 
 if [ "$PHP_OPCACHE_ENABLE" == "1" ]; then
+  echo "Enabling opcache..."
   echo "zend_extension=opcache.so" >> $OPCACHE_INI_FILE
   echo "opcache.enable=1" >> $OPCACHE_INI_FILE
   echo "opcache.memory_consumption=$PHP_OPCACHE_MEMORY_CONSUMPTION" >> $OPCACHE_INI_FILE
@@ -36,15 +38,17 @@ APC_INI_FILE="$INI_DIR/apcu.ini"
 rm -f $APC_INI_FILE
 
 if [ $PHP_APCU_ENABLE == '1' ]; then
+  echo "Enabling apcu..."
   echo 'extension=apcu.so' > $APC_INI_FILE
 fi
 
 
-IONCUBE_INI_FILE="$INI_DIR/000-ioncube.ini"
+IONCUBE_INI_FILE="$INI_DIR/ioncube.ini"
 
 rm -f $IONCUBE_INI_FILE
 
 if [ $SWPHP_IONCUBE_ENABLE == '1' ]; then
+  echo "Enabling ioncube for php 7.2..."
   echo "zend_extension=ioncube_loader_lin_7.2.so" >> $IONCUBE_INI_FILE
 fi
 

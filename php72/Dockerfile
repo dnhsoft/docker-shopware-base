@@ -36,10 +36,11 @@ RUN rm -rf /var/www/html && ln -s /shopware /var/www/html && \
 # Install Ioncube loader
 RUN mkdir /ioncube && \
     cd /ioncube && \
-    wget https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_ppc64le_10.3.8.tar.gz && \
-    tar xvf ioncube_loaders_lin_ppc64le_10.3.8.tar.gz && \
+    wget https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
+    tar xvf ioncube_loaders_lin_x86-64.tar.gz && \ 
     cd `php -i | grep extension_dir | cut -d' ' -f 5` && \
-    cp /ioncube/ppc64le/ioncube_loader_lin_7.2.so . && \
+    cp /ioncube//ioncube/ioncube_loader_lin_7.2.so . && \
+    pwd && ls -la && \
     rm -rf /ioncube/
 
 
