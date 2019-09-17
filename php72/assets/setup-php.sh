@@ -30,6 +30,7 @@ if [ "$PHP_OPCACHE_ENABLE" == "1" ]; then
   echo "opcache.max_accelerated_files=$PHP_OPCACHE_ACCELERATED_FILES" >> $OPCACHE_INI_FILE
   echo "opcache.revalidate_freq=$PHP_OPCACHE_REVALIDATE_FREQ" >> $OPCACHE_INI_FILE
   echo "opcache.fast_shutdown=$PHP_OPCACHE_FAST_SHUTDOWN" >> $OPCACHE_INI_FILE
+  echo "opcache.validate_root=$PHP_OPCACHE_VALIDATE_ROOT" >> $OPCACHE_INI_FILE
 fi
 
 
