@@ -11,9 +11,23 @@ RUN apt-get update && apt-get install -y \
         libjpeg62-turbo-dev \
         libicu-dev \
         zlib1g-dev \
+        jpegoptim \
+        pngcrush \
+        guetzli \ 
+        optipng \
+        libjpeg-progs \
     && docker-php-ext-install -j$(nproc) iconv pdo pdo_mysql zip bcmath intl \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
+
+
+# install png out
+RUN wget http://static.jonof.id.au/dl/kenutils/pngout-20150319-linux.tar.gz &&\
+        tar -xf pngout-20150319-linux.tar.gz &&\
+        rm pngout-20150319-linux.tar.gz &&\
+        cp pngout-20150319-linux/x86_64/pngout /bin/pngout &&\
+        rm -rf pngout-20150319-linux
+
 
 RUN pecl install apcu
 
