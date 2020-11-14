@@ -53,11 +53,10 @@ RUN rm -rf /var/www/html && ln -s /shopware /var/www/html && \
 # Install Ioncube loader
 RUN mkdir /ioncube && \
     cd /ioncube && \
-    wget https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
-    tar xvf ioncube_loaders_lin_x86-64.tar.gz && \ 
+    wget "http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz" && \
+    tar xvf ioncube_loaders_lin_x86-64.tar.gz --strip-components=1 && \
     cd `php -i | grep extension_dir | cut -d' ' -f 5` && \
-    cp /ioncube//ioncube/ioncube_loader_lin_7.2.so . && \
-    pwd && ls -la && \
+    cp /ioncube/ioncube_loader_lin_7.4.so . && \
     rm -rf /ioncube/
 
 
@@ -80,6 +79,7 @@ ENV PHP_OPCACHE_VALIDATE_ROOT 1
 # other variables
 ENV PHP_APCU_ENABLE 1
 
+ENV SWPHP_IONCUBE_ENABLE 0
 
 # Inject some commands in the run.sh file in order to have a startup contron. 
 # prepare-sw-on-startup.sh must be defined by the inheritant Docker images.
